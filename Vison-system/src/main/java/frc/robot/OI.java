@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.commands.Drive;
 
 /**
@@ -17,9 +18,12 @@ import frc.robot.commands.Drive;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-  Joystick stick = new Joystick(0);
-  Button button1 = new JoystickButton(stick, 0);
+  Joystick leftstick = new Joystick(1);
   
+  
+  
+
+
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a
   //// joystick.

@@ -36,10 +36,14 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    
     m_oi = new OI();
     m_chooser.setDefaultOption("Default Auto", new Drive());
-    // chooser.addOption("My Auto", new MyAutoCommand());
+    m_chooser.addOption("My Auto", new Drive());
     SmartDashboard.putData("Auto mode", m_chooser);
+    m_autonomousCommand = new Drive();
+    SmartDashboard.putBoolean("Moter poower set ran?", true);
+    SmartDashboard.updateValues();
   }
 
   /**
@@ -52,6 +56,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    SmartDashboard.putBoolean("Ran??", true);
+    
+
   }
 
   /**
@@ -106,6 +113,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    SmartDashboard.putBoolean("ran", true);
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
@@ -120,6 +128,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    
     Scheduler.getInstance().run();
   }
 
@@ -128,5 +137,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+    SmartDashboard.putBoolean("ran", false);
+    SmartDashboard.updateValues();
   }
 }

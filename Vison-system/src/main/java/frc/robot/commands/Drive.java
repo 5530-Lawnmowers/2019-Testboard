@@ -8,21 +8,23 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.*;
 public class Drive extends Command {
-  public double Rspeed = .01;
-  public double Lspeed = .01;
+  public double Rspeed = .25;
+  public double Lspeed = -.25;
   public Drive() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     super("Drive");
     requires(Robot.m_subsystem);
   }
-
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-   
+    setTimeout(1);
+    SmartDashboard.putBoolean("test", true);
+   SmartDashboard.updateValues();
   }
 
   // Called repeatedly when this Command is scheduled to run
