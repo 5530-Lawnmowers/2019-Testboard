@@ -46,7 +46,7 @@ public class Drive extends Command {
     SmartDashboard.putNumber("LimelightX", x);
     SmartDashboard.putNumber("LimelightY", y);
     SmartDashboard.putNumber("LimelightArea", area);
-    
+    SmartDashboard.updateValues();
     Robot.m_subsystem.setSpeed(Rspeed, Lspeed);
 
   }
