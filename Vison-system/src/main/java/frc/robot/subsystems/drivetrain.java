@@ -35,13 +35,11 @@ public class drivetrain extends Subsystem {
     Rightup.set(ControlMode.PercentOutput, Rspeed);
     Leftback.set(ControlMode.PercentOutput, Lspeed);
     Leftup.set(ControlMode.PercentOutput, Lspeed);
-     SmartDashboard.putBoolean("Moter poower set ran?", true);
+    SmartDashboard.putBoolean("Moter poower set ran?", true);
     SmartDashboard.updateValues();
 
   }
-  public boolean ran(){
-    return ran;
-  }
+  
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
