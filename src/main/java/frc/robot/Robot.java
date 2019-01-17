@@ -52,12 +52,7 @@ public class Robot extends IterativeRobot {
    */
   @Override
   public void robotInit() {
-    m_chooser.addDefault("Default Auto", kDefaultAuto);
-    m_chooser.addObject("My Auto", kCustomAuto);
-    SmartDashboard.putData("Auto choices", m_chooser);
     ai = new AnalogInput(0);
-
-    SmartDashboard.putData("Auto choices", m_chooser);
     motorSpeedWidget = speedTab.add("motorSpeed", 0);
     
   }
@@ -95,21 +90,16 @@ public class Robot extends IterativeRobot {
     compressingTimer.reset();
     compressingTimer.start();
     isDoneCompressing = false;
-  }
-
-  /**
-   * This function is called periodically during operator control.
-   */
-
-  @Override
-  public void teleopInit(){
     final NetworkTableEntry motorSpeed = motorSpeedWidget.getEntry();
     motor.setIdleMode(CANSparkMax.IdleMode.kBrake);
     motor.set(motorSpeed.getDouble(1.0));
     digitalInput = new CANDigitalInput(motor, CANDigitalInput.LimitSwitch.kReverse, CANDigitalInput.LimitSwitchPolarity.kNormallyClosed);
 
-
   }
+
+  /**
+   * This function is called periodically during operator control.
+   */
 
   @Override
   public void teleopPeriodic() {
