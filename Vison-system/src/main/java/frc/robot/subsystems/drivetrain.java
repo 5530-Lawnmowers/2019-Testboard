@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.commands.*;
 import edu.wpi.first.wpilibj.shuffleboard.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.ctre.phoenix.sensors.*;
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
@@ -25,6 +26,7 @@ public class drivetrain extends Subsystem {
   TalonSRX Leftback = new TalonSRX(04);
   TalonSRX Rightup = new TalonSRX(01);
   TalonSRX Rightdown = new TalonSRX(03);
+  
     
     
   // Put methods for controlling this subsystem
@@ -33,8 +35,8 @@ public class drivetrain extends Subsystem {
    
     Rightdown.set(ControlMode.PercentOutput, Rspeed);
     Rightup.set(ControlMode.PercentOutput, Rspeed);
-    Leftback.set(ControlMode.PercentOutput, Lspeed);
-    Leftup.set(ControlMode.PercentOutput, Lspeed);
+    Leftback.set(ControlMode.PercentOutput, -Lspeed);
+    Leftup.set(ControlMode.PercentOutput, -Lspeed);
     SmartDashboard.putBoolean("Moter poower set ran?", true);
     SmartDashboard.updateValues();
 
