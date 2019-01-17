@@ -10,6 +10,13 @@ package frc.robot;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.AnalogInput;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,6 +30,12 @@ public class Robot extends IterativeRobot {
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  DoubleSolenoid solenoidTest;
+  Compressor compressor;
+  Timer compressingTimer;
+  Timer actuatorTimer;
+  Boolean isDoneCompressing;
+  AnalogInput ai;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -30,9 +43,11 @@ public class Robot extends IterativeRobot {
    */
   @Override
   public void robotInit() {
-    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
-    m_chooser.addOption("My Auto", kCustomAuto);
+    m_chooser.addDefault("Default Auto", kDefaultAuto);
+    m_chooser.addObject("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+    ai = new AnalogInput(0);
+
   }
 
   /**
@@ -82,11 +97,64 @@ public class Robot extends IterativeRobot {
     }
   }
 
+  @Override
+  public void teleopInit() {
+    solenoidTest = new DoubleSolenoid(4,5);
+    compressor = new Compressor(0);
+    compressingTimer = new Timer();
+    actuatorTimer = new Timer();
+    compressor.start();
+    compressingTimer.reset();
+    compressingTimer.start();
+    isDoneCompressing = false;
+  }
+
   /**
    * This function is called periodically during operator control.
    */
   @Override
   public void teleopPeriodic() {
+    //PNEUMATICS STUFF
+    /*
+    SmartDashboard.putNumber("Timer", actuatorTimer.get());
+    if(compressingTimer.get() >= 5.0){
+      compressor.stop();
+      compressingTimer.reset();
+      compressingTimer.stop();
+      actuatorTimer.start();
+      solenoidTest.set(DoubleSolenoid.Value.kReverse);
+    }
+    if(actuatorTimer.get() >= 1.0){
+      if(solenoidTest.get() == DoubleSolenoid.Value.kReverse){
+        solenoidTest.set(DoubleSolenoid.Value.kForward);
+      } else {
+        solenoidTest.set(DoubleSolenoid.Value.kReverse);
+      }
+      actuatorTimer.reset();
+      actuatorTimer.start();
+    }
+    */
+
+
+    // //LIMELIGHT STUFF
+    // NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+    // NetworkTableEntry tx = table.getEntry("tx");
+    // NetworkTableEntry ty = table.getEntry("ty");
+    // NetworkTableEntry ta = table.getEntry("ta");
+
+    // //read values periodically
+    // double x = tx.getDouble(0.0);
+    // double y = ty.getDouble(0.0);
+    // double area = ta.getDouble(0.0);
+
+    // //post to smart dashboard periodically
+    // SmartDashboard.putNumber("LimelightX", x);
+    // SmartDashboard.putNumber("LimelightY", y);
+    // SmartDashboard.putNumber("LimelightArea", area);
+
+    // ULTRASONIC STUFF
+    System.out.println(ai.getVoltage());
+    System.out.println(ai.getVoltage()*0.977);
   }
 
   /**
